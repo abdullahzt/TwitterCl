@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		186950DC242B26AA00DEA75C /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186950DB242B26AA00DEA75C /* ImagePickerViewController.swift */; };
+		186EF69D2429C1130038EB7D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EF69C2429C1130038EB7D /* LoginController.swift */; };
+		186EF6A02429C5900038EB7D /* RegisterationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EF69F2429C5900038EB7D /* RegisterationController.swift */; };
+		186EF6A22429D7E40038EB7D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EF6A12429D7E40038EB7D /* Utilities.swift */; };
 		18A78DCF2428F7A900BD7A03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A78DCE2428F7A900BD7A03 /* AppDelegate.swift */; };
 		18A78DD12428F7A900BD7A03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A78DD02428F7A900BD7A03 /* SceneDelegate.swift */; };
 		18A78DD62428F7A900BD7A03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A78DD42428F7A900BD7A03 /* Main.storyboard */; };
@@ -21,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		186950DB242B26AA00DEA75C /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
+		186EF69C2429C1130038EB7D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		186EF69F2429C5900038EB7D /* RegisterationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterationController.swift; sourceTree = "<group>"; };
+		186EF6A12429D7E40038EB7D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		18A78DCB2428F7A900BD7A03 /* TwitterCl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterCl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A78DCE2428F7A900BD7A03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18A78DD02428F7A900BD7A03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		186EF69B2429C0E20038EB7D /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				186EF69C2429C1130038EB7D /* LoginController.swift */,
+				186EF69F2429C5900038EB7D /* RegisterationController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		18A78DC22428F7A900BD7A03 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				18A78DF3242924B100BD7A03 /* Extensions.swift */,
+				186EF6A12429D7E40038EB7D /* Utilities.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -100,6 +118,7 @@
 		18A78DE52428F7F000BD7A03 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				186EF69B2429C0E20038EB7D /* Authentication */,
 				18A78DE92428F8B600BD7A03 /* MainTabController.swift */,
 				18A78DEB2428FD6B00BD7A03 /* FeedController.swift */,
 				18A78DED2428FDF800BD7A03 /* ExploreController.swift */,
@@ -126,6 +145,7 @@
 		18A78DE82428F7F400BD7A03 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				186950DB242B26AA00DEA75C /* ImagePickerViewController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,11 +223,15 @@
 			files = (
 				18A78DF02428FE0C00BD7A03 /* NotificationController.swift in Sources */,
 				18A78DF22428FE2700BD7A03 /* ConversationsController.swift in Sources */,
+				186EF6A22429D7E40038EB7D /* Utilities.swift in Sources */,
 				18A78DCF2428F7A900BD7A03 /* AppDelegate.swift in Sources */,
 				18A78DF4242924B100BD7A03 /* Extensions.swift in Sources */,
+				186EF6A02429C5900038EB7D /* RegisterationController.swift in Sources */,
 				18A78DEE2428FDF800BD7A03 /* ExploreController.swift in Sources */,
 				18A78DD12428F7A900BD7A03 /* SceneDelegate.swift in Sources */,
+				186950DC242B26AA00DEA75C /* ImagePickerViewController.swift in Sources */,
 				18A78DEA2428F8B600BD7A03 /* MainTabController.swift in Sources */,
+				186EF69D2429C1130038EB7D /* LoginController.swift in Sources */,
 				18A78DEC2428FD6B00BD7A03 /* FeedController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +377,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 93H5W6UBR8;
 				INFOPLIST_FILE = TwitterCl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -370,6 +395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 93H5W6UBR8;
 				INFOPLIST_FILE = TwitterCl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
