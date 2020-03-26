@@ -44,13 +44,7 @@ class LoginController: UIViewController {
     }()
     
     private let loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Log In", for: .normal)
-        button.setTitleColor(.twitterBlue, for: .normal)
-        button.backgroundColor = .white
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        let button = Utilities.authenticationButton(withText: "Log In")
         button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -71,7 +65,24 @@ class LoginController: UIViewController {
     //MARK: - Selectors
     
     @objc func loginButtonTapped() {
-        print("login button pressed")
+        
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        AuthService.shared.logUserIn(withEmail: email, withPassword: password) { (result, error) in
+            if let loginError = error {
+                print("DEBUG ERROR LOGGING IN: \(loginError.localizedDescription)")
+                return
+            }
+            
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            
+            tab.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+
     }
     
     @objc func showSignUp() {

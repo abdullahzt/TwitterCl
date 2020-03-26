@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class RegisterationController: ImagePickerViewController {
     
     //MARK: - Properties
     
-//    private let imagePicker = UIImagePickerController()
+    private var userProfileImage: UIImage?
     
     private let plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -64,7 +65,6 @@ class RegisterationController: ImagePickerViewController {
     
     private let userNameTextField: UITextField = {
         let tf = Utilities.textField(withPlaceholder: "User Name")
-        tf.isSecureTextEntry = true
         return tf
     }()
     
@@ -75,13 +75,7 @@ class RegisterationController: ImagePickerViewController {
     }()
     
     private let registerationButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.twitterBlue, for: .normal)
-        button.backgroundColor = .white
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        let button = Utilities.authenticationButton(withText: "Sign Up")
         button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -100,11 +94,32 @@ class RegisterationController: ImagePickerViewController {
     }
     
     @objc func addProfilePhotoTapped() {
-            showImageSources()
+        showImageSources()
     }
     
     @objc func registerButtonTapped() {
-        print("handle registeration")
+        
+        guard let profileImage = userProfileImage else {
+            print("Error Please Select a profile Image")
+            return
+        }
+        
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let fullname = fullNameTextField.text else { return }
+        guard let username = userNameTextField.text else { return }
+        
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
+        
+        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            
+            tab.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     //MARK: - Helpers
@@ -112,8 +127,8 @@ class RegisterationController: ImagePickerViewController {
     func configureUI() {
         view.backgroundColor = .twitterBlue
         
-//        imagePicker.delegate = self
-//        imagePicker.allowsEditing = true
+        //        imagePicker.delegate = self
+        //        imagePicker.allowsEditing = true
         
         //Adding add photo button to login screen.
         view.addSubview(plusPhotoButton)
@@ -141,9 +156,10 @@ class RegisterationController: ImagePickerViewController {
 //MARK: - UIImagePickerControllerDelegate
 extension RegisterationController {
     
-     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         guard let profileImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        self.userProfileImage = profileImage
         
         plusPhotoButton.layer.cornerRadius = 128/2
         plusPhotoButton.layer.masksToBounds = true
