@@ -61,7 +61,7 @@ class Utilities {
     static func authenticationButton(withText text: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(text, for: .normal)
-        button.setTitleColor(.twitterBlue, for: .normal)
+        button.setTitleColor(UIColor(named: "twitterBlue"), for: .normal)
         button.backgroundColor = .white
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.layer.cornerRadius = 5

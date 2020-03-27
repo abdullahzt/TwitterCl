@@ -13,10 +13,19 @@ class MainTabController: UITabBarController {
     
     //MARK: - Properties
     
+    var user: User? {
+        didSet {
+            guard let nav = viewControllers?[0] as? UINavigationController else { return }
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            
+            feed.user = user
+        }
+    }
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
-        button.backgroundColor = .twitterBlue
+        button.backgroundColor = UIColor(named: "twitterBlue")
         button.setImage(UIImage(named: "new_tweet"), for: .normal)
         button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         return button
@@ -33,12 +42,18 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-//        logUserOut()
-        view.backgroundColor = .twitterBlue
+        logUserOut()
+        view.backgroundColor = UIColor(named: "twitterBlue")
         authenticateUserAndConfigureUI()
     }
     
     //MARK: - API
+    
+    func fetchUser() {
+        UserService.shared.fetchUser { (user) in
+            self.user = user
+        }
+    }
     
     func authenticateUserAndConfigureUI() {
         if Auth.auth().currentUser == nil {
@@ -50,6 +65,7 @@ class MainTabController: UITabBarController {
         } else {
             configureViewController()
             configureUI()
+            fetchUser()
         }
     }
     

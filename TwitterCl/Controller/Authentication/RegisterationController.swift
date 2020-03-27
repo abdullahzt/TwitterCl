@@ -99,23 +99,28 @@ class RegisterationController: ImagePickerViewController {
     
     @objc func registerButtonTapped() {
         
+        view.showBlurLoader()
+        
         guard let profileImage = userProfileImage else {
             print("Error Please Select a profile Image")
+            self.view.removeBluerLoader()
             return
         }
         
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
-        guard let fullname = fullNameTextField.text else { return }
-        guard let username = userNameTextField.text else { return }
+        guard let email = emailTextField.text else { self.view.removeBluerLoader() ; return }
+        guard let password = passwordTextField.text else { self.view.removeBluerLoader() ; return }
+        guard let fullname = fullNameTextField.text else { self.view.removeBluerLoader() ; return }
+        guard let username = userNameTextField.text else { self.view.removeBluerLoader() ; return }
         
         let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
         
-        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-            guard let tab = window.rootViewController as? MainTabController else { return }
+        AuthService.shared.registerUser(credentials: credentials, view: self.view) { (error, ref) in
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { self.view.removeBluerLoader() ; return }
+            guard let tab = window.rootViewController as? MainTabController else { self.view.removeBluerLoader() ; return }
             
             tab.authenticateUserAndConfigureUI()
+            
+            self.view.removeBluerLoader()
             
             self.dismiss(animated: true, completion: nil)
         }
@@ -125,7 +130,7 @@ class RegisterationController: ImagePickerViewController {
     //MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = .twitterBlue
+        view.backgroundColor = UIColor(named: "twitterBlue")
         
         //        imagePicker.delegate = self
         //        imagePicker.allowsEditing = true

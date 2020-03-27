@@ -16,7 +16,7 @@ class LoginController: UIViewController {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "TwitterLogo")
+        iv.image = #imageLiteral(resourceName: "whiteLogo")
         return iv
     }()
     
@@ -66,17 +66,25 @@ class LoginController: UIViewController {
     
     @objc func loginButtonTapped() {
         
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
+        passwordTextField.endEditing(true)
+        emailTextField.endEditing(true)
+        
+        view.showBlurLoader()
+        
+        guard let email = emailTextField.text else { view.removeBluerLoader() ; return }
+        guard let password = passwordTextField.text else { view.removeBluerLoader() ; return }
         
         AuthService.shared.logUserIn(withEmail: email, withPassword: password) { (result, error) in
             if let loginError = error {
                 print("DEBUG ERROR LOGGING IN: \(loginError.localizedDescription)")
+                self.view.removeBluerLoader()
                 return
             }
             
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-            guard let tab = window.rootViewController as? MainTabController else { return }
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { self.view.removeBluerLoader() ; return }
+            guard let tab = window.rootViewController as? MainTabController else { self.view.removeBluerLoader() ; return }
+            
+            self.view.removeBluerLoader()
             
             tab.authenticateUserAndConfigureUI()
             
@@ -93,14 +101,14 @@ class LoginController: UIViewController {
     //MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = .twitterBlue
+        view.backgroundColor = UIColor(named: "twitterBlue")
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true
         
         //Adding twitter logo to login screen.
         view.addSubview(logoImageView)
-        logoImageView.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
-        logoImageView.setDimensions(width: 150, height: 150)
+        logoImageView.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor, paddingTop: 30)
+        logoImageView.setDimensions(width: 125, height: 125)
         
         let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, loginButton])
         stack.axis = .vertical
@@ -108,7 +116,7 @@ class LoginController: UIViewController {
         stack.distribution = .fillEqually
         
         view.addSubview(stack)
-        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
+        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 32, paddingRight: 32)
         
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 40, paddingBottom: 20, paddingRight: 40)

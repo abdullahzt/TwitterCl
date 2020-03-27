@@ -26,7 +26,7 @@ struct AuthService {
 
     }
     
-    func registerUser(credentials: AuthCredentials, completion: @escaping(Error?, DatabaseReference) -> Void) {
+    func registerUser(credentials: AuthCredentials, view: UIView, completion: @escaping(Error?, DatabaseReference) -> Void) {
         let email = credentials.email
         let password = credentials.password
         let username = credentials.username
@@ -41,6 +41,7 @@ struct AuthService {
 
                 if let imageError = error {
                     print(imageError.localizedDescription)
+                    view.removeBluerLoader()
                     return
                 }
                 
@@ -49,11 +50,12 @@ struct AuthService {
                 Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                     if let error = error {
                         print("Error logging in: \(error.localizedDescription)")
+                        view.removeBluerLoader()
                         return
                     }
    
                     //User successfully created, update data on database.
-                    guard let uid = result?.user.uid else { return }
+                    guard let uid = result?.user.uid else { view.removeBluerLoader() ; return }
                     
                     let values = ["email": email,
                                   "username": username,
