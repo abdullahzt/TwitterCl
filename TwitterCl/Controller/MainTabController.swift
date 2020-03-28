@@ -22,6 +22,8 @@ class MainTabController: UITabBarController {
         }
     }
     
+    var menuDelegate: HomeControllerDelegate?
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -34,7 +36,11 @@ class MainTabController: UITabBarController {
     //MARK: - Selector
     
     @objc func actionButtonTapped() {
-        print(123)
+        guard let user = user else { return }
+        let controller = UploadTweetController(user: user)
+        let nav = UINavigationController(rootViewController: controller )
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
     }
     
     //MARK: - Lifecycle
@@ -125,4 +131,10 @@ class MainTabController: UITabBarController {
         
     }
 
+}
+
+extension MainTabController: HomeControllerDelegate {
+    func handleMenuToggle() {
+        menuDelegate?.handleMenuToggle()
+    }
 }

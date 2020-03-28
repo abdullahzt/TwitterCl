@@ -84,6 +84,14 @@ class RegisterationController: ImagePickerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        userNameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        fullNameTextField.delegate = self
         configureUI()
     }
     
@@ -116,9 +124,9 @@ class RegisterationController: ImagePickerViewController {
         
         AuthService.shared.registerUser(credentials: credentials, view: self.view) { (error, ref) in
             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { self.view.removeBluerLoader() ; return }
-            guard let tab = window.rootViewController as? MainTabController else { self.view.removeBluerLoader() ; return }
+            guard let tab = window.rootViewController as? ContainerController else { self.view.removeBluerLoader() ; return }
             
-            tab.authenticateUserAndConfigureUI()
+            tab.homeController.authenticateUserAndConfigureUI()
             
             self.view.removeBluerLoader()
             
@@ -176,5 +184,30 @@ extension RegisterationController {
         self.plusPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         
         dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension RegisterationController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+}
+
+//MARK: - ViewAdjustments
+extension RegisterationController {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height/2
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 }

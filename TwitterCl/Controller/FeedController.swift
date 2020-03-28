@@ -20,11 +20,21 @@ class FeedController: UIViewController {
         }
     }
     
+    let profileImageView = UIImageView()
+    
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    //MARK: - API
+    
+    func fetchTweets() {
+        TweetService.shared.fetchTweets { (tweets) in
+            print(tweets)
+        }
     }
     
     //MARK: - Helper
@@ -43,7 +53,6 @@ class FeedController: UIViewController {
     func configureLeftBarButton() {
         guard let user = user else { return }
         
-        let profileImageView = UIImageView()
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32/2
         profileImageView.layer.masksToBounds = true
@@ -58,7 +67,8 @@ class FeedController: UIViewController {
     }
     
     @objc func handleProfileImageTap() {
-        print("Hello")
+        let tabBar = self.tabBarController as? MainTabController
+        tabBar?.handleMenuToggle()
     }
     
 }

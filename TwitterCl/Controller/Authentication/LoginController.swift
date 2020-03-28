@@ -59,6 +59,10 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         configureUI()
     }
     
@@ -82,11 +86,11 @@ class LoginController: UIViewController {
             }
             
             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { self.view.removeBluerLoader() ; return }
-            guard let tab = window.rootViewController as? MainTabController else { self.view.removeBluerLoader() ; return }
+            guard let tab = window.rootViewController as? ContainerController else { self.view.removeBluerLoader() ; return }
             
             self.view.removeBluerLoader()
             
-            tab.authenticateUserAndConfigureUI()
+            tab.homeController.authenticateUserAndConfigureUI()
             
             self.dismiss(animated: true, completion: nil)
         }
@@ -101,6 +105,10 @@ class LoginController: UIViewController {
     //MARK: - Helpers
     
     func configureUI() {
+        loginButton.isEnabled = false
+        loginButton.alpha = 0.5
+        emailTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
         view.backgroundColor = UIColor(named: "twitterBlue")
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true
@@ -121,4 +129,35 @@ class LoginController: UIViewController {
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 40, paddingBottom: 20, paddingRight: 40)
     }
+}
+
+//MARK: - ViewAdjustments
+extension LoginController {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if ((notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= 40
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+}
+
+extension LoginController: UITextFieldDelegate {
+    
+    @objc func textFieldDidChange(textField: UITextField) {
+        loginButton.isEnabled = !(emailTextField.text?.isEmpty ?? true) && !(passwordTextField.text?.isEmpty ?? true)
+        loginButton.isEnabled ? (loginButton.alpha = 1) : (loginButton.alpha = 0.5)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
 }
