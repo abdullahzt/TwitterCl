@@ -22,7 +22,7 @@ class MainTabController: UITabBarController {
         }
     }
     
-    var menuDelegate: HomeControllerDelegate?
+    var menuDelegate: MainTabControllerDelegate?
     
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
@@ -48,7 +48,7 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        logUserOut()
+//        logUserOut()
         view.backgroundColor = UIColor(named: "twitterBlue")
         authenticateUserAndConfigureUI()
     }
@@ -56,7 +56,8 @@ class MainTabController: UITabBarController {
     //MARK: - API
     
     func fetchUser() {
-        UserService.shared.fetchUser { (user) in
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        UserService.shared.fetchUser(uid: uid) { (user) in
             self.user = user
         }
     }
@@ -78,6 +79,7 @@ class MainTabController: UITabBarController {
     func logUserOut() {
         do {
             try Auth.auth().signOut()
+            self.authenticateUserAndConfigureUI()
         } catch {
             print("Error signing out: \(error.localizedDescription)")
         }
@@ -99,13 +101,11 @@ class MainTabController: UITabBarController {
 //        actionButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
 
         
-        
-        
     }
     
     func configureViewController() {
         
-        let feed = FeedController()
+        let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         let navigationFeed = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
         
         let explore = ExploreController()
@@ -133,8 +133,18 @@ class MainTabController: UITabBarController {
 
 }
 
-extension MainTabController: HomeControllerDelegate {
-    func handleMenuToggle() {
-        menuDelegate?.handleMenuToggle()
+extension MainTabController: MainTabControllerDelegate {
+    
+    func handleMenuToggle(forMenuOption option: MenuOption?) {
+        if let option = option {
+            if option == .Logout {
+                logUserOut()
+            }
+            return
+        }
+        menuDelegate?.handleMenuToggle(forMenuOption: option)
     }
+    
 }
+
+

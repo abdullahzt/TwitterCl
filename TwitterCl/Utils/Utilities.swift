@@ -68,4 +68,12 @@ class Utilities {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         return button
     }
+    
+    static func collectionActionButton(withImageName imageName: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.tintColor = .darkGray
+        button.setDimensions(width: 20, height: 20)
+        return button
+    }
 }

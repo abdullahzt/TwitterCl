@@ -118,7 +118,7 @@ class RegisterationController: ImagePickerViewController {
         guard let email = emailTextField.text else { self.view.removeBluerLoader() ; return }
         guard let password = passwordTextField.text else { self.view.removeBluerLoader() ; return }
         guard let fullname = fullNameTextField.text else { self.view.removeBluerLoader() ; return }
-        guard let username = userNameTextField.text else { self.view.removeBluerLoader() ; return }
+        guard let username = userNameTextField.text?.lowercased() else { self.view.removeBluerLoader() ; return }
         
         let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
         

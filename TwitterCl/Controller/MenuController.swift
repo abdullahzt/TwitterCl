@@ -14,6 +14,8 @@ class MenuController: UIViewController {
     
     var tableView: UITableView!
     
+    var delegate: MainTabControllerDelegate?
+    
     private let reuseIdentifier = "MenuOptionCell"
     
     var user: User?
@@ -114,6 +116,12 @@ class MenuController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: userDataView.bottomAnchor).isActive = true
     }
+    
+    func reset() {
+        userImageView.image = nil
+        userNameView.text = nil
+        fullNameView.text = nil
+    }
 }
 
 extension MenuController: UITableViewDelegate, UITableViewDataSource {
@@ -127,11 +135,12 @@ extension MenuController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         cell.descriptionLabel.text = menuOption?.description
         cell.iconImageView.image = menuOption?.image
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let menuOption = MenuOption(rawValue: indexPath.row)
+        delegate?.handleMenuToggle(forMenuOption: menuOption)
     }
 }
