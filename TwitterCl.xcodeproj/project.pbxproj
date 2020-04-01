@@ -11,6 +11,8 @@
 		1849306A242F849100C32570 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18493069242F849100C32570 /* UploadTweetController.swift */; };
 		1849306C242FA19800C32570 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849306B242FA19800C32570 /* CaptionTextView.swift */; };
 		1849306E242FB83B00C32570 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849306D242FB83B00C32570 /* TweetService.swift */; };
+		18660266243387120028E94A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18660265243387120028E94A /* ProfileController.swift */; };
+		186602682433A70A0028E94A /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186602672433A70A0028E94A /* ProfileHeader.swift */; };
 		186950DC242B26AA00DEA75C /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186950DB242B26AA00DEA75C /* ImagePickerViewController.swift */; };
 		186950DE242B339000DEA75C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186950DD242B339000DEA75C /* GoogleService-Info.plist */; };
 		186950E0242B8F8000DEA75C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186950DF242B8F8000DEA75C /* Constants.swift */; };
@@ -48,6 +50,8 @@
 		18493069242F849100C32570 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
 		1849306B242FA19800C32570 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
 		1849306D242FB83B00C32570 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
+		18660265243387120028E94A /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		186602672433A70A0028E94A /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		186950DB242B26AA00DEA75C /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		186950DD242B339000DEA75C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		186950DF242B8F8000DEA75C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 				18CD4059242E805F00923AAD /* ContainerController.swift */,
 				18CD4063242E952E00923AAD /* MenuController.swift */,
 				18493069242F849100C32570 /* UploadTweetController.swift */,
+				18660265243387120028E94A /* ProfileController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 				18CD4061242E94F400923AAD /* MenuOptionCell.swift */,
 				1849306B242FA19800C32570 /* CaptionTextView.swift */,
 				180B7A072430AC6F001210A8 /* TweetCell.swift */,
+				186602672433A70A0028E94A /* ProfileHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 				18AA3143242FC70300531353 /* Tweet.swift in Sources */,
 				18A78DF4242924B100BD7A03 /* Extensions.swift in Sources */,
 				1849306C242FA19800C32570 /* CaptionTextView.swift in Sources */,
+				186602682433A70A0028E94A /* ProfileHeader.swift in Sources */,
 				18730CAA243260DC00C5ED99 /* TweetViewModel.swift in Sources */,
 				186EF6A02429C5900038EB7D /* RegisterationController.swift in Sources */,
 				18CD4062242E94F400923AAD /* MenuOptionCell.swift in Sources */,
@@ -369,6 +376,7 @@
 				18A78DD12428F7A900BD7A03 /* SceneDelegate.swift in Sources */,
 				186950DC242B26AA00DEA75C /* ImagePickerViewController.swift in Sources */,
 				18CD4060242E94CC00923AAD /* MenuOption.swift in Sources */,
+				18660266243387120028E94A /* ProfileController.swift in Sources */,
 				18A78DEA2428F8B600BD7A03 /* MainTabController.swift in Sources */,
 				18CD4064242E952E00923AAD /* MenuController.swift in Sources */,
 				1849306E242FB83B00C32570 /* TweetService.swift in Sources */,
