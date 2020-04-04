@@ -20,6 +20,8 @@
 		186EF6A02429C5900038EB7D /* RegisterationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EF69F2429C5900038EB7D /* RegisterationController.swift */; };
 		186EF6A22429D7E40038EB7D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EF6A12429D7E40038EB7D /* Utilities.swift */; };
 		18730CAA243260DC00C5ED99 /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18730CA9243260DC00C5ED99 /* TweetViewModel.swift */; };
+		1880171A24367E69001854CF /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880171924367E69001854CF /* ProfileFilterView.swift */; };
+		1880171C243681E9001854CF /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880171B243681E9001854CF /* ProfileFilterCell.swift */; };
 		1898D0FA242C7ECF00009F69 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1898D0F9242C7ECF00009F69 /* AuthService.swift */; };
 		1898D0FD242D0EF900009F69 /* loadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1898D0FC242D0EF900009F69 /* loadingAnimation.swift */; };
 		18A78DCF2428F7A900BD7A03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A78DCE2428F7A900BD7A03 /* AppDelegate.swift */; };
@@ -41,6 +43,7 @@
 		18CD4060242E94CC00923AAD /* MenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD405F242E94CC00923AAD /* MenuOption.swift */; };
 		18CD4062242E94F400923AAD /* MenuOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD4061242E94F400923AAD /* MenuOptionCell.swift */; };
 		18CD4064242E952E00923AAD /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD4063242E952E00923AAD /* MenuController.swift */; };
+		18D9039E2437610400A77997 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D9039D2437610400A77997 /* ProfileHeaderViewModel.swift */; };
 		3D39373C44430797A617C18E /* Pods_TwitterCl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8FDAFC9B45A25E390A9CED /* Pods_TwitterCl.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +62,8 @@
 		186EF69F2429C5900038EB7D /* RegisterationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterationController.swift; sourceTree = "<group>"; };
 		186EF6A12429D7E40038EB7D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		18730CA9243260DC00C5ED99 /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
+		1880171924367E69001854CF /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
+		1880171B243681E9001854CF /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
 		1898D0F9242C7ECF00009F69 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		1898D0FC242D0EF900009F69 /* loadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadingAnimation.swift; sourceTree = "<group>"; };
 		18A78DCB2428F7A900BD7A03 /* TwitterCl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterCl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +87,7 @@
 		18CD405F242E94CC00923AAD /* MenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOption.swift; sourceTree = "<group>"; };
 		18CD4061242E94F400923AAD /* MenuOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptionCell.swift; sourceTree = "<group>"; };
 		18CD4063242E952E00923AAD /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		18D9039D2437610400A77997 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		8F6447838854B70FEA005905 /* Pods-TwitterCl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterCl.debug.xcconfig"; path = "Target Support Files/Pods-TwitterCl/Pods-TwitterCl.debug.xcconfig"; sourceTree = "<group>"; };
 		EE8FDAFC9B45A25E390A9CED /* Pods_TwitterCl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterCl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -197,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				18730CA9243260DC00C5ED99 /* TweetViewModel.swift */,
+				18D9039D2437610400A77997 /* ProfileHeaderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -208,6 +215,8 @@
 				1849306B242FA19800C32570 /* CaptionTextView.swift */,
 				180B7A072430AC6F001210A8 /* TweetCell.swift */,
 				186602672433A70A0028E94A /* ProfileHeader.swift */,
+				1880171924367E69001854CF /* ProfileFilterView.swift */,
+				1880171B243681E9001854CF /* ProfileFilterCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -359,10 +368,13 @@
 				18A78DF22428FE2700BD7A03 /* ConversationsController.swift in Sources */,
 				186EF6A22429D7E40038EB7D /* Utilities.swift in Sources */,
 				1898D0FD242D0EF900009F69 /* loadingAnimation.swift in Sources */,
+				1880171A24367E69001854CF /* ProfileFilterView.swift in Sources */,
 				18A78DCF2428F7A900BD7A03 /* AppDelegate.swift in Sources */,
 				18AA3143242FC70300531353 /* Tweet.swift in Sources */,
 				18A78DF4242924B100BD7A03 /* Extensions.swift in Sources */,
+				18D9039E2437610400A77997 /* ProfileHeaderViewModel.swift in Sources */,
 				1849306C242FA19800C32570 /* CaptionTextView.swift in Sources */,
+				1880171C243681E9001854CF /* ProfileFilterCell.swift in Sources */,
 				186602682433A70A0028E94A /* ProfileHeader.swift in Sources */,
 				18730CAA243260DC00C5ED99 /* TweetViewModel.swift in Sources */,
 				186EF6A02429C5900038EB7D /* RegisterationController.swift in Sources */,

@@ -25,9 +25,9 @@ class ContainerController: UIViewController {
         configureHomeController()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .darkContent
+//    }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .slide
@@ -36,6 +36,7 @@ class ContainerController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return isExpanded
     }
+    
     //MARK: - Handlers
     
     func configureHomeController() {

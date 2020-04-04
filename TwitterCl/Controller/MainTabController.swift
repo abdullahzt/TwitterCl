@@ -139,6 +139,15 @@ extension MainTabController: MainTabControllerDelegate {
         if let option = option {
             if option == .Logout {
                 logUserOut()
+            } else if option == .Profile {
+                
+                guard let user = user else { return }
+                
+                guard let nav = viewControllers?[0] as? UINavigationController else { return }
+                guard let feed = nav.viewControllers.first as? FeedController else { return }
+                
+                let controller = ProfileController(user: user)
+                feed.navigationController?.pushViewController(controller, animated: true)
             }
             return
         }
