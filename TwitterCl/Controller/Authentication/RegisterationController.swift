@@ -107,6 +107,11 @@ class RegisterationController: ImagePickerViewController {
     
     @objc func registerButtonTapped() {
         
+        emailTextField.endEditing(true)
+        passwordTextField.endEditing(true)
+        userNameTextField.endEditing(true)
+        fullNameTextField.endEditing(true)
+        
         view.showBlurLoader()
         
         guard let profileImage = userProfileImage else {

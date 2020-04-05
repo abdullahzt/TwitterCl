@@ -25,9 +25,9 @@ class ContainerController: UIViewController {
         configureHomeController()
     }
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .darkContent
-//    }
+    //    override var preferredStatusBarStyle: UIStatusBarStyle {
+    //        return .darkContent
+    //    }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .slide
@@ -49,14 +49,20 @@ class ContainerController: UIViewController {
     }
     
     func configureMenuController() {
-        if menuController == nil {
-            //add our menu controller
-            menuController = MenuController(user: homeController.user)
-            menuController.delegate = self
-            view.insertSubview(menuController.view, at: 0)
-            addChild(menuController)
-            menuController.didMove(toParent: self)
+        
+        if menuController != nil {
+            self.menuController.view.removeFromSuperview()
+            self.menuController.removeFromParent()
+            self.menuController = nil
         }
+        
+        //add our menu controller
+        menuController = MenuController(user: homeController.user)
+        menuController.delegate = self
+        view.insertSubview(menuController.view, at: 0)
+        addChild(menuController)
+        menuController.didMove(toParent: self)
+        
     }
     
     func animatePanel(shouldExpand: Bool, menuOption: MenuOption?) {

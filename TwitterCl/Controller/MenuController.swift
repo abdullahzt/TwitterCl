@@ -48,10 +48,31 @@ class MenuController: UIViewController {
         return label
     }()
     
+    let followingLabel: UILabel = {
+        let label = UILabel()
+        
+//        let followTap = UITapGestureRecognizer(target: self, action: #selector(followerTapped))
+//        label.isUserInteractionEnabled = true
+//        label.addGestureRecognizer(followTap)
+        
+        return label
+    }()
+    
+    let followersLabel: UILabel = {
+        let label = UILabel()
+        
+//        let followTap = UITapGestureRecognizer(target: self, action: #selector(followingTapped))
+//        label.isUserInteractionEnabled = true
+//        label.addGestureRecognizer(followTap)
+        
+        return label
+    }()
+    
     //MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchUserStats()
         configureTableView()
     }
     
@@ -62,6 +83,18 @@ class MenuController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - API
+    
+    func fetchUserStats() {
+        guard var user = user else { return }
+        
+        UserService.shared.fetchUserStats(uid: user.uid) {stats in
+            user.stats = stats
+            self.followersLabel.attributedText = self.attributedText(withValue: user.stats?.followers ?? 0, text: "Followes")
+            self.followingLabel.attributedText = self.attributedText(withValue: user.stats?.following ?? 0, text: "Following")
+        }
     }
     
     //MARK: - Handlers
@@ -85,6 +118,17 @@ class MenuController: UIViewController {
         userNameView.leftAnchor.constraint(equalTo: userDataView.leftAnchor, constant: 20).isActive = true
         userNameView.topAnchor.constraint(equalTo: fullNameView.bottomAnchor, constant: 10).isActive = true
         
+        let followStack = UIStackView(arrangedSubviews: [followersLabel, followingLabel])
+        followStack.axis = .horizontal
+        followStack.spacing = 8
+        followStack.distribution = .fillEqually
+        
+        followersLabel.attributedText = attributedText(withValue: user?.stats?.followers ?? 0, text: "Followes")
+        followingLabel.attributedText = attributedText(withValue: user?.stats?.following ?? 0, text: "Following")
+        
+        userDataView.addSubview(followStack)
+        followStack.anchor(top: userNameView.bottomAnchor, left: userDataView.leftAnchor, paddingTop: 10, paddingLeft: 20)
+        
         let dividerView = UIView()
         dividerView.backgroundColor = .white
         userDataView.addSubview(dividerView)
@@ -96,7 +140,7 @@ class MenuController: UIViewController {
         userDataView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         userDataView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         userDataView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        userDataView.heightAnchor.constraint(equalToConstant: 220).isActive = true
+        userDataView.heightAnchor.constraint(equalToConstant: 260).isActive = true
         
         //---------------------------------------------------------------------//
         
@@ -142,5 +186,18 @@ extension MenuController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let menuOption = MenuOption(rawValue: indexPath.row)
         delegate?.handleMenuToggle(forMenuOption: menuOption)
+    }
+    
+    //MARK: - Helpers
+    
+    fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+    
+    let attributedTitle = NSMutableAttributedString(string: "\(value)",
+        attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
+    
+    attributedTitle.append(NSAttributedString(string: " \(text)",
+        attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
+    
+    return attributedTitle
     }
 }

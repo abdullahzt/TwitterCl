@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileHeaderDelegate: class {
     func handleDismissal()
+    func handleEditProfileFollow(_ header: ProfileHeader)
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -51,7 +52,7 @@ class ProfileHeader: UICollectionReusableView {
         return iv
     }()
     
-    private lazy var editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.layer.borderColor = UIColor(named: TWIT_BLUE)?.cgColor
@@ -137,7 +138,7 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(userDetailStack)
         userDetailStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 12, paddingRight: 12)
         
-        let followStack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+        let followStack = UIStackView(arrangedSubviews: [followersLabel, followingLabel])
         followStack.axis = .horizontal
         followStack.spacing = 8
         followStack.distribution = .fillEqually
@@ -164,7 +165,7 @@ class ProfileHeader: UICollectionReusableView {
     }
     
     @objc func handleEditProfileFollow() {
-        
+        delegate?.handleEditProfileFollow(self)
     }
     
     @objc func followerTapped() {
@@ -188,6 +189,18 @@ class ProfileHeader: UICollectionReusableView {
         usernameLabel.text = viewModel.usernameText
         
         editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        
+        if let isFollowed = user.isFollowed {
+            if !isFollowed && !user.isCurrentUser {
+                editProfileFollowButton.setTitleColor(.white, for: .normal)
+                editProfileFollowButton.backgroundColor = .twitterBlue
+            } else if isFollowed && !user.isCurrentUser {
+                editProfileFollowButton.setTitleColor(.twitterBlue, for: .normal)
+                editProfileFollowButton.backgroundColor = .white
+            }
+        }
+        
+        
         followingLabel.attributedText = viewModel.followingString
         followersLabel.attributedText = viewModel.followerString
         
