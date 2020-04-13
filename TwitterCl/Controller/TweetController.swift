@@ -15,6 +15,11 @@ class TweetController: UICollectionViewController {
     //MARK: - Properties
     
     private let tweet: Tweet
+    private var replies = [Tweet]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     //MARK: - LifeCycle
     
@@ -30,6 +35,15 @@ class TweetController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        fetchReplies()
+    }
+    
+    //MARK: - API
+    
+    func fetchReplies() {
+        TweetService.shared.fetchReplies(forTweet: tweet) { (replies) in
+            self.replies = replies
+        }
     }
     
     //MARK: - Helpers
@@ -46,11 +60,12 @@ class TweetController: UICollectionViewController {
 extension TweetController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return replies.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+        cell.tweet = replies[indexPath.row]
         return cell
     }
     
@@ -64,7 +79,9 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 350)
+        let viewModel = TweetViewModel(tweet: tweet)
+        let captionHeight = viewModel.size(forWidth: view.frame.width, withSize: 20).height
+        return CGSize(width: view.frame.width, height: captionHeight + 225)
     }
     
 }
@@ -73,6 +90,7 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
 extension TweetController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! TweetHeader
+        header.tweet = tweet
         return header
     }
 }
